@@ -1,36 +1,40 @@
-import React,{ useState } from 'react'
-import { redirectToAuthCodeFlow, getAccessToken } from './authentication';
-import './App.css'
-import { SearchBar } from './components/SearchBar'
-import { SearchResultsList } from './components/SearchResultsList';
+import React, { useState } from 'react';
+import { SearchBar } from './SearchBar';
+import { SearchResult } from './SearchResult';
+import "./App.css"; // Assume you have an App.css for layout styling
 
-const clientId = import.meta.env.VITE_CLIENT_ID;
-const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
-
-if (!code) {
-  redirectToAuthCodeFlow(clientId);
-} else {
-  (async () => {
-    try {
-      const accessToken = await getAccessToken(clientId, code);
-    } catch (error) {
-      console.error('Error', error.message);
-    }
-  })
-}
-
-function App() {
+const App = () => {
   const [results, setResults] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
+
+  const addToPlaylist = (song) => {
+    setPlaylist((prevPlaylist) => [...prevPlaylist, song]);
+  };
 
   return (
-   <div className='App'>
-    <div className="search-bar-container">
-        <SearchBar setResults={setResults}/>
-        <SearchResultsList results={results} />
+    <div className="app-container">
+      <div className="search-column">
+        <SearchBar setResults={setResults} />
+        <div className="search-results">
+          {results.map(result => (
+            <SearchResult key={result.id} result={result} addToPlaylist={addToPlaylist} />
+          ))}
+        </div>
+      </div>
+      <div className="playlist-column">
+        <h2>Playlist</h2>
+        <div className="playlist">
+          {playlist.map((song, index) => (
+            <div key={index} className="playlist-item">
+              <div className="playlist-song">{song.song}</div>
+              <div className="playlist-artist">{song.artist}</div>
+              <div className="playlist-album">{song.album}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-   </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
