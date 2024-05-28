@@ -1,57 +1,44 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import "./SearchBar.css";
-import { getSpotifyToken, searchSpotify } from './spotify';
+import React, { useState, useEffect } from 'react'
+import { FaSearch } from 'react-icons/fa'
+import "./SearchBar.css"
+import { getSpotifyToken, searchSpotify } from './spotify'
 
 export const SearchBar = ({ setResults }) => {
-    const [input, setInput] = useState("");
-    const [token, setToken] = useState("");
+    const [input, setInput] = useState("")
+    const [token, setToken] = useState("")
 
     useEffect(() => {
         const fetchToken = async () => {
-            try {
-                const token = await getSpotifyToken();
-                setToken(token);
-            } catch (error) {
-                console.error("Error fetching Spotify token:", error);
-            }
+            const token = await getSpotifyToken();
+            setToken(token);
         };
         fetchToken();
     }, []);
 
-    const fetchData = useCallback(async (value) => {
+
+    const fetchData = async (value) => {
         if (token) {
-            try {
-                const results = await searchSpotify(token, value);
-                setResults(results);
-            } catch (error) {
-                console.error("Error fetching data from Spotify:", error);
-            }
-        }
-    }, [token, setResults]);
+            const results = await searchSpotify(token, value);
+            setResults(results)
+        } 
+    }
 
     const handleChange = (value) => {
         setInput(value);
         if (value) {
-            debounceFetchData(value);
-        }
-    };
+            fetchData(value)
+        } 
+    }
+//https://www.youtube.com/watch?v=sWVgMcz8Q44
 
-    const debounceFetchData = useCallback(
-        debounce((value) => {
-            fetchData(value);
-        }, 500),
-        [fetchData]
-    );
-
-    return (
-        <div className='input-wrapper'>
-            <FaSearch id="search-icon" />
-            <input
-                placeholder='Type artist, song or album.'
-                value={input} 
-                onChange={(e) => handleChange(e.target.value)}
-            />
-        </div>
-    );
-};
+  return (
+    <div className='input-wrapper'>
+        <FaSearch id="search-icon" />
+        <input
+         placeholder='Type a song.'
+         value ={input} 
+         onChange={(e) => handleChange(e.target.value)}
+         />
+    </div>
+  )
+}

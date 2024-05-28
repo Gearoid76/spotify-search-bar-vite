@@ -1,18 +1,13 @@
 import React from 'react';
 import "./SearchResult.css";
 
-export const SearchResult = ({ result, addToPlaylist }) => {
+export const SearchResult = ({ result }) => {
   const { song, artist, album } = result;
-
-  const handleClick = () => {
-    addToPlaylist(result);
-    alert(`You clicked on "${song}" by ${artist} from the album "${album}"`);
-  };
 
   return (
     <div 
       className='search-result' 
-      onClick={handleClick}
+      onClick={() => alert(`You clicked on "${song}" by ${artist} from the album "${album}"`)}
     >
       <div className='result-name'>{song}</div>
       <div className='result-artist'>{artist}</div>
