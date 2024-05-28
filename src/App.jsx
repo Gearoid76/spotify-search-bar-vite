@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SearchBar } from './SearchBar';
-import { SearchResult } from './SearchResult';
+import { SearchBar } from './components/SearchBar';
+import { SearchResult } from './components/SearchResult';
 import "./App.css"; // Assume you have an App.css for layout styling
 
 const App = () => {
