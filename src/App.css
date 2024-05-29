@@ -6,10 +6,18 @@
 }
 .search-bar-container {
     padding-top: 20vh;
-    width: 40%;
+    width: 60%;
     margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 200px;
+   /* min-width: 200px; */
+}
+.search-bar-resultBoxes {
+    display: flex;
+    flex-direction: row;
+    width: 160%;
+    justify-content: space-between;
+    
+
 }
