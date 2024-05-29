@@ -27,7 +27,16 @@ function App() {
    <div className='App'>
     <div className="search-bar-container">
         <SearchBar setResults={setResults}/>
+        <div className='resultAndPlaylistColumn'>
         <SearchResultsList results={results} />
+        <div className='newPlaylist'>
+          <div>A</div>
+          <div>B</div>
+          <div>C</div>
+          <div>D</div>
+        </div>
+        </div>
+       
     </div>
    </div>
   )
