@@ -3,6 +3,7 @@ import { redirectToAuthCodeFlow, getAccessToken } from './authentication';
 import './App.css'
 import { SearchBar } from './components/SearchBar'
 import { SearchResultsList } from './components/SearchResultsList';
+import { NewPlayList } from './components/NewPlayList';
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 const params = new URLSearchParams(window.location.search);
@@ -17,29 +18,28 @@ if (!code) {
     } catch (error) {
       console.error('Error', error.message);
     }
-  })
+  })();
 }
 
 function App() {
   const [results, setResults] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
+
+  const addToPlayList = (result) => {
+    setPlaylist((prevPlaylist) => [...prevPlaylist, result]);
+  };
 
   return (
    <div className='App'>
-    <div className="search-bar-container">
-        <SearchBar setResults={setResults}/>
-        <div className='resultAndPlaylistColumn'>
-        <SearchResultsList results={results} />
-        <div className='newPlaylist'>
-          <div>A</div>
-          <div>B</div>
-          <div>C</div>
-          <div>D</div>
-        </div>
-        </div>
-       
-    </div>
+      <div className="search-bar-container">
+          <SearchBar setResults={setResults}/>
+          <div className='resultAndPlaylistColumn'>
+          <SearchResultsList results={results} addToPlayList={addToPlayList} />
+          <NewPlayList playlist={playlist} />
+          </div>
+      </div>   
    </div>
-  )
+  );
 }
 
-export default App
+export default App;

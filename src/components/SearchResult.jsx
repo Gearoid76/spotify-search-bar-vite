@@ -5,7 +5,7 @@ export const SearchResult = ({ result, addToPlayList }) => {
   const { song, artist, album } = result;
   const handleClick = () => {
     addToPlayList(result)
-  }
+  };
 
   return (
     <div className='search-result' >
