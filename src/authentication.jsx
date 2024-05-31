@@ -15,7 +15,7 @@ export async function redirectToAuthCodeFlow(clientId) {
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
- export function generateCodeVerifier(length) {
+export function generateCodeVerifier(length) {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -24,18 +24,27 @@ export async function redirectToAuthCodeFlow(clientId) {
     }
     return text;
 }
- export async function generateCodeChallenge(codeVerifier) {
-    const data = new TextEncoder().encode(codeVerifier);
-    const digest = await window.crypto.subtle.digest('SHA-256', data);
-    return btoa(String.fromCharCode(...new Uint8Array(digest)))
+
+async function sha256(plain) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(plain);
+    return window.crypto.subtle.digest('SHA-256', data);
+}
+
+function base64urlencode(a) {
+    return btoa(String.fromCharCode.apply(null, new Uint8Array(a)))
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=+$/, '');
 }
 
+export async function generateCodeChallenge(codeVerifier) {
+    const hashed = await sha256(codeVerifier);
+    return base64urlencode(hashed);
+}
+
 export async function getAccessToken(clientId, code) {
     const verifier = localStorage.getItem("verifier");
-    localStorage.setItem("verifier", verifier);
 
     const params = new URLSearchParams();
     params.append("client_id", clientId);
@@ -43,14 +52,22 @@ export async function getAccessToken(clientId, code) {
     params.append("code", code);
     params.append("redirect_uri", "http://localhost:5173/callback");
     params.append("code_verifier", verifier);
-    
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json"
+        },
+        body: params.toString()
     });
 
+    if (!result.ok) {
+        const errorDetails = await result.json();
+        console.error('Failed to fetch access token:', errorDetails);
+        throw new Error('Failed to fetch access token');
+    }
+
     const { access_token } = await result.json();
-    return access_token; 
+    return access_token;
 }
