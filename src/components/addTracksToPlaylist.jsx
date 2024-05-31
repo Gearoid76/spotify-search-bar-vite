@@ -1,4 +1,4 @@
-export const addTracksToPlaylist = async (playlistId, trackUris, accessToken) => { 
+export const addTracksToPlaylist = async (accessToken, playlistId, trackUris) => { 
     await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
         method: 'POST',
         headers: {
@@ -9,6 +9,6 @@ export const addTracksToPlaylist = async (playlistId, trackUris, accessToken) =>
             uris: trackUris,
         }),
     });
+    console.log('playlistId', playlistId);
 };
 
-//export default playlist;
