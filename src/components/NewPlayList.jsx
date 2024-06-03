@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './NewPlayList.css';
+import { FaMinus } from 'react-icons/fa';
 
 export const NewPlayList = ({ playlist, savePlaylist }) => {
   const [playlistName, setPlaylistName] = useState('');
@@ -12,22 +13,30 @@ export const NewPlayList = ({ playlist, savePlaylist }) => {
     savePlaylist(playlistName, playlist);
   };
 
-      return (
-        <div className='new-playlist'>
-          <input 
-            onChange={handleChange}
-            type='text'
-            placeholder='New Playlist'
-            value={playlistName}
-          />
-          <button onClick={handleSave}>Save to Spotify</button>
-          <div className='playlist'>
-            {playlist.map((song, index) => (
-              <div key={index} className='playlist-item'>
-                {song.song} - {song.artist} ({song.album})
-              </div>
-            ))}
+  return (
+    <div className='new-playlist'>
+      <input 
+        onChange={handleChange}
+        type='text'
+        placeholder='New Playlist'
+        value={playlistName}
+        className='playlist-input'
+      />
+      <button className='save-button' onClick={handleSave}>Save to Spotify</button>
+      <div className='playlist'>
+        {playlist.map((song, index) => (
+          <div key={index} className='search-result'>
+            <div className='result-info'>
+              <div className='result-name'>{song.song}</div>
+              <div className='result-artist'>{song.artist}</div>
+              <div className='result-album'>{song.album}</div>
+            </div>
+            <button className='remove-button' onClick={() => removeSongFromPlaylist(index)}>
+              <FaMinus />
+            </button>
           </div>
-        </div>
-      );
-    };
+        ))}
+      </div>
+    </div>
+  );
+};
