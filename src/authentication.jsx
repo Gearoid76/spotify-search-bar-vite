@@ -15,6 +15,9 @@ export async function redirectToAuthCodeFlow(clientId) {
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
+//PKCE authorization flow start with the creation of a code verifier
+//https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow#code-challenge 
+
 export function generateCodeVerifier(length) {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -25,7 +28,7 @@ export function generateCodeVerifier(length) {
     return text;
 }
 
-async function sha256(plain) {
+    async function sha256(plain) {
     const encoder = new TextEncoder();
     const data = encoder.encode(plain);
     return window.crypto.subtle.digest('SHA-256', data);
@@ -33,9 +36,9 @@ async function sha256(plain) {
 
 function base64urlencode(a) {
     return btoa(String.fromCharCode.apply(null, new Uint8Array(a)))
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
 }
 
 export async function generateCodeChallenge(codeVerifier) {
@@ -45,13 +48,21 @@ export async function generateCodeChallenge(codeVerifier) {
 
 export async function getAccessToken(clientId, code) {
     const verifier = localStorage.getItem("verifier");
-
+    /*
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
     params.append("redirect_uri", "http://localhost:5173/callback");
     params.append("code_verifier", verifier);
+    */
+    const params = new URLSearchParams({
+        client_id: CLIENT_ID,
+        response_type: 'code',
+        redirect_uri: REDIRECT_URI,
+        scope: SCOPE,
+      });
+
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",

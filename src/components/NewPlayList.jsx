@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './NewPlayList.css';
 
-export const NewPlayList = ({ playlist,savePlaylist }) => {
+export const NewPlayList = ({ playlist, savePlaylist }) => {
   const [playlistName, setPlaylistName] = useState('');
 
   const handleChange = (e) => {
@@ -15,10 +15,10 @@ export const NewPlayList = ({ playlist,savePlaylist }) => {
       return (
         <div className='new-playlist'>
           <input 
-            type='text'
-            placeholder='Playlist Name'
-            value={playlistName}
             onChange={handleChange}
+            type='text'
+            placeholder='New Playlist'
+            value={playlistName}
           />
           <button onClick={handleSave}>Save to Spotify</button>
           <div className='playlist'>
@@ -31,4 +31,3 @@ export const NewPlayList = ({ playlist,savePlaylist }) => {
         </div>
       );
     };
-

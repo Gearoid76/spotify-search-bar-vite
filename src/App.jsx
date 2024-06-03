@@ -8,7 +8,7 @@ import { SearchBar } from './components/SearchBar'
 import { SearchResultsList } from './components/SearchResultsList';
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
-//const clientSecret = import.meta.env.ITE_CLIENT_SECRET;
+//const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 const authUrl = new URL('https://accounts.spotify.com/authorize')
