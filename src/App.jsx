@@ -61,7 +61,7 @@ function App() {
             <SearchResultsList results={results} addToPlayList={addToPlayList} />
             <NewPlayList playlist={playlist} savePlaylist={savePlaylist} />
           </div>
-      </div>   
+      </div>
    </div>
   );
 }
