@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { NewPlayList } from './components/NewPlayList';
 import { redirectToAuthCodeFlow, getAccessToken } from './authentication';
-import { createSpotifyPlaylist } from './components/createSpotifyPlaylist'; // may have problems
-import { addTracksToPlaylist } from './components/addTracksToPlaylist';      // may have problems
+import { createSpotifyPlaylist } from './components/createSpotifyPlaylist'; 
+import { addTracksToPlaylist } from './components/addTracksToPlaylist';
 import './App.css';
 import { SearchBar } from './components/SearchBar'
 import { SearchResultsList } from './components/SearchResultsList';
-import { NewPlayList } from './components/NewPlayList';
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 //const clientSecret = import.meta.env.ITE_CLIENT_SECRET;
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
-let accessToken = null;
+const authUrl = new URL('https://accounts.spotify.com/authorize')
+
 
 function App() {
   const [results, setResults] = useState([]);
