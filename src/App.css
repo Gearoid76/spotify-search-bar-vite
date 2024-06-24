@@ -1,3 +1,11 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+/* ------------- App --------- */
 .App {
     background-color: #eee;
     height: 100vh;
@@ -11,18 +19,120 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-   /* min-width: 200px; */
 }
+
 .resultAndPlaylistColumn {
     display: flex;
     flex-direction: row;
     width: 140%;
-    justify-content: space-between;
-    
+    justify-content: space-between;    
 }
+/* ------------- new Playlist --------- */
 .newPlaylist {
     background-color: rgb(255, 255, 255);
     width: 48%; 
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 10px;
+    margin-top: 1rem;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.new-playlist {
+    width: 48%; 
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 10px;
+    margin-top: 1rem;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+.new-playlist:hover {
+    background-color: white;
+}
+.remove-button {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #007bff;
+}
+/* ------------- search bar --------- */
+
+.input-wrapper {
+    background-color: white;
+    width: 100%;
+    border-radius: 10px;
+    height: 2.5rem;
+    padding: 0 15px;
+    box-shadow: 0px 0px 8px #ddd;
+    display: flex;
+    align-items: center;
+}
+input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    font-size: 1.25rem;
+    width: 100%;
+    margin-left: 5px;
+}
+input:focus {
+    outline: none;
+}
+#search-icon {
+    color: royalblue;
+}
+
+.save-button {
+    width: 90%;
+    align-self: center;
+}
+
+/* ------------- search Result --------- */
+
+.search-result {
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search-result:hover {
+    background-color: #efefef;
+}
+.result-info {
+    display: flex;
+    flex-direction: column;
+}
+.result-name {
+    font-weight: bold;
+}
+.result-artist, .result-album {
+    color: #555;
+  }
+.add-button {
+    background: none;
+    border: 0px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #007bff;
+}
+.add-button:hover {
+    color: #0056b3;
+}
+
+/* ------------- search Result list  --------- */
+
+.results-list {
+    width: 48%; 
+    background-color: white;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 8px #ddd;

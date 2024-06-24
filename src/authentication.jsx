@@ -15,6 +15,7 @@ export async function redirectToAuthCodeFlow(clientId) {
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
+
 //PKCE authorization flow start with the creation of a code verifier
 //https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow#code-challenge 
 
@@ -48,37 +49,31 @@ export async function generateCodeChallenge(codeVerifier) {
 
 export async function getAccessToken(clientId, code) {
     const verifier = localStorage.getItem("verifier");
-    /*
     const params = new URLSearchParams();
-    params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
+    params.append("client_id", import.meta.env.VITE_CLIENT_ID);
     params.append("redirect_uri", "http://localhost:5173/callback");
     params.append("code_verifier", verifier);
-    */
-    const params = new URLSearchParams({
-        client_id: CLIENT_ID,
-        response_type: 'code',
-        redirect_uri: REDIRECT_URI,
-        scope: SCOPE,
-      });
 
-
-    const result = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "application/json"
-        },
-        body: params.toString()
-    });
-
-    if (!result.ok) {
-        const errorDetails = await result.json();
-        console.error('Failed to fetch access token:', errorDetails);
-        throw new Error('Failed to fetch access token');
-    }
-
-    const { access_token } = await result.json();
-    return access_token;
-}
+    try {
+        const response = await fetch('https://accounts.spotify.com/api/token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: params.toString(),
+        });
+    
+        const data = await response.json();
+        if (!response.ok) {
+          console.error('Failed to fetch access token:', data);
+          throw new Error(data.error_description || 'Failed to fetch access token');
+        }
+        return data.access_token;
+      } catch (error) {
+        console.error('Error fetching access token:', error);
+        throw error;
+      }
+    };
+    

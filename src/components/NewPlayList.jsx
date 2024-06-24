@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './NewPlayList.css';
+import '../App.css';
 import { FaMinus } from 'react-icons/fa';
 
 export const NewPlayList = ({ playlist, savePlaylist }) => {
@@ -12,7 +12,6 @@ export const NewPlayList = ({ playlist, savePlaylist }) => {
   const handleSave = () => {
     savePlaylist(playlistName, playlist);
   };
-
   return (
     <div className='new-playlist'>
       <input 
@@ -40,3 +39,4 @@ export const NewPlayList = ({ playlist, savePlaylist }) => {
     </div>
   );
 };
+//console.log('hello last line in newPlaylist result-name ',song.song);

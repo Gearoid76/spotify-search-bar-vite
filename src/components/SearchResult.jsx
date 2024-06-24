@@ -1,5 +1,5 @@
 import React from 'react';
-import "./SearchResult.css";
+import '../App.css';
 import { FaPlus } from 'react-icons/fa';
 export const SearchResult = ({ result, addToPlayList }) => {
   const { song, artist, album } = result;
