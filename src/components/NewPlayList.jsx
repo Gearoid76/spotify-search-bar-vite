@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../App.css';
 import { FaMinus } from 'react-icons/fa';
 
-export const NewPlayList = ({ playlist, savePlaylist }) => {
+export const NewPlayList = ({ playlist, savePlaylist, removeSongFromPlaylist }) => {
   const [playlistName, setPlaylistName] = useState('');
 
   const handleChange = (e) => {
@@ -39,4 +39,3 @@ export const NewPlayList = ({ playlist, savePlaylist }) => {
     </div>
   );
 };
-//console.log('hello last line in newPlaylist result-name ',song.song);

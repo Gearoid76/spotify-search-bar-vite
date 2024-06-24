@@ -33,7 +33,9 @@ export const searchSpotify = async (token, query) => {
    id: track.id,
    song: track.name,
    artist: track.artists[0].name,
-   album: track.album.name
+   //artist: track.artists.map(artist => artist.name).join(", ")
+   album: track.album.name,
+   uri: track.uri
   }));
   
 };
