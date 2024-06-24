@@ -36,10 +36,19 @@ function App() {
   }, []);
 
   const addToPlayList = (result) => {
+    console.log('Adding result to playlist', result);
+
+    if (!result.uri) {
+      console.error('Result does not have a uri:', result);
+      alert ('This track cannot be added to the playlist because it is missing a URI');
+      return;
+    }
     setPlaylist((prevPlaylist) => [...prevPlaylist, result]);
   };
-  console.log('App ln 41 hello ');
-
+  const removeSongFromPlaylist = (index) => {
+    setPlaylist((prevPlaylist) => prevPlaylist.filter((_, i) => i !== index));
+  };
+ 
   const savePlaylist = async (name, playlist) => {
     console.log('Playlist before saving:', playlist);
     const trackUris = playlist.map(song => song.uri);
@@ -69,13 +78,31 @@ function App() {
     }
   };
 
+  const searchTracks = async (query) => {
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    const data = await response.json();
+    const results = data.tracks.items.map(track => ({
+      id: track.id,
+      song: track.name,
+      artist: track.artists.map(artist => artist.name).join(", "),
+      album: track.album.name,
+      uri: track.uri
+    }));
+    setResults(results);
+  };
+
   return (
   <div className='App'>
       <div className="search-bar-container">
-      <SearchBar setResults={setResults} />
+      <SearchBar setResults={setResults} searchTracks={searchTracks} />
       <div className='resultAndPlaylistColumn'>
         <SearchResultsList results={results} addToPlayList={addToPlayList} />
-        <NewPlayList playlist={playlist} savePlaylist={savePlaylist} />
+        <NewPlayList playlist={playlist} savePlaylist={savePlaylist} removeSongFromPlaylist={removeSongFromPlaylist} />
       </div>
       </div>
     </div>
