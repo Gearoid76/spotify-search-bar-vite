@@ -8,16 +8,16 @@ export const SearchResult = ({ result, addToPlayList }) => {
   };
 
   return (
-    <div className='search-result' >
-      <div className='result-info' >
-        <div className='result-name'>{song}</div>
-        <div className='result-artist'>{artist}</div>
-        <div className='result-album'>{album}</div>
+      <div className='search-result' > 
+        <div className='result-info' >
+          <div className='result-name'>{song}</div>
+          <div className='result-artist'>{artist}</div>
+          <div className='result-album'>{album}</div>
+        </div>
+        <button className='add-button' onClick={handleClick}>
+          <FaPlus />
+        </button>
       </div>
-      <button className='add-button' onClick={handleClick}>
-        <FaPlus />
-      </button>
-    </div>
   );
 };
 

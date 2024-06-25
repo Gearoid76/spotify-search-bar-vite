@@ -28,8 +28,9 @@ function App() {
           const token = await getAccessToken(clientId, code);
           console.log('Fetched Access Token:', token);
           setAccessToken(token);
+          window.history.replaceState({}, document.title, "/");
         } catch (error) {
-          console.error('Error', error.message);
+          console.error('Error fetching access token', error.message);
         }
       })();
     }
@@ -52,7 +53,13 @@ function App() {
   const savePlaylist = async (name, playlist) => {
     console.log('Playlist before saving:', playlist);
     const trackUris = playlist.map(song => song.uri);
-    console.log('Track URIs:', trackUri);
+    console.log('Track URIs:', trackUris);
+
+    if (!accessToken) {
+      console.error('Access token is missing ');
+      alert('Acccess token is missing. Please authenticate again');
+      return;
+    }
 
     if (trackUris.includes(undefined)) {
       console.error('Invalid track URIs detected:', trackUris);
@@ -79,6 +86,13 @@ function App() {
   };
 
   const searchTracks = async (query) => {
+
+    if (!accessToken) {
+      console.error('Access token is missing 2');
+      alert('Access token is missing. Please authenticate again');
+      return;
+    }
+
     const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track`, {
       headers: {
         Authorization: `Bearer ${accessToken}`

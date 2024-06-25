@@ -49,10 +49,17 @@ export async function generateCodeChallenge(codeVerifier) {
 
 export async function getAccessToken(clientId, code) {
     const verifier = localStorage.getItem("verifier");
+
+    if(!verifier) {
+      console.error('Verifier is missing from localstorage');
+      throw new Error('Verifier is missing');
+    }
+
     const params = new URLSearchParams();
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("client_id", import.meta.env.VITE_CLIENT_ID);
+    params.append("client_id", clientId);
+    //params.append("client_id", import.meta.env.VITE_CLIENT_ID);
     params.append("redirect_uri", "http://localhost:5173/callback");
     params.append("code_verifier", verifier);
 

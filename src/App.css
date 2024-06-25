@@ -138,6 +138,9 @@
   .add-button:hover {
     color: #0056b3;
   }
+  .resultHolder {
+    border: 10%;
+  }
   
   /* ------------- Search Results List --------- */
   .results-list {

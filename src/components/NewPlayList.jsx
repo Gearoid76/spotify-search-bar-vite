@@ -21,7 +21,6 @@ export const NewPlayList = ({ playlist, savePlaylist, removeSongFromPlaylist }) 
         value={playlistName}
         className='playlist-input'
       />
-      <button className='save-button' onClick={handleSave}>Save to Spotify</button>
       <div className='playlist'>
         {playlist.map((song, index) => (
           <div key={index} className='search-result'>
@@ -36,6 +35,7 @@ export const NewPlayList = ({ playlist, savePlaylist, removeSongFromPlaylist }) 
           </div>
         ))}
       </div>
+      <button className='save-button' onClick={handleSave}>Save to Spotify</button>
     </div>
   );
 };
