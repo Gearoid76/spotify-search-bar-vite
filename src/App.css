@@ -95,7 +95,13 @@
   
   .save-button {
     width: 80%;
+    font-size: 1.25rem;
+    background-color: transparent;
     align-self: center;
+    border-radius: 10px;
+    height: 2.5rem;
+    padding: 0 15px;
+    box-shadow: 0 0 10px #fefefe;
   }
   
   /* ------------- Search Result --------- */
