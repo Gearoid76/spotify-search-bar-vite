@@ -6,8 +6,4 @@ export default defineConfig({
   plugins: [react()],
   base: '/spotify-search-bar-vite/'
 })
-{
-  server: {
-    host: '127.0.0.1'
-  }
-}
+
