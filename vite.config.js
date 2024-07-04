@@ -5,6 +5,7 @@ export default defineConfig({
   server: {
     open: true,
   },
-  plugins: [react()],
   base: '/spotify-search-bar-vite/',
+  plugins: [react()],
+  
 });
