@@ -9,10 +9,11 @@ const callback = () => {
         const fetchData = async () => {
             const params = new URLSearchParams(location.search);
             const code = params.get('code');
+            const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
 
             if (code) {
                 try {
-                    const response = await axios.post('YOUR BACKEND UR/token', { code });
+                    const response = await axios.post('redirect_uri/token', { code });
                 } catch (error) {
                     console.error('Error exchanging code for token', error);
                 }
