@@ -6,9 +6,7 @@ import { addTracksToPlaylist } from './components/addTracksToPlaylist';
 import './App.css';
 import { SearchBar } from './components/SearchBar';
 import { SearchResultsList } from './components/SearchResultsList';
-//import { Callback } from './components/Callback'; // wondering where to put this!!
 
-const clientId = import.meta.env.VITE_CLIENT_ID;
 
 function App() {
   const [results, setResults] = useState([]);
