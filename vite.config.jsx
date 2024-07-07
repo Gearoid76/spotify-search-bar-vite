@@ -4,4 +4,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: '/spotify-search-bar-vite/',
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
 });
