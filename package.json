@@ -29,7 +29,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "gh-pages": "^6.1.1",
-    "vite": "^2.9.18",
+    "vite": "^2.5.10",
     "vite-plugin-gh-pages": "^0.4.1",
     "vite-plugin-static": "^0.0.3"
   }
