@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { NewPlayList } from './components/NewPlayList';
 import { redirectToAuthCodeFlow, getAccessToken } from './authentication';
 import { createSpotifyPlaylist } from './components/createSpotifyPlaylist'; 
@@ -7,7 +8,6 @@ import './App.css';
 import { SearchBar } from './components/SearchBar';
 import { SearchResultsList } from './components/SearchResultsList';
 
-const clientId = import.meta.env.VITE_CLIENT_ID;
 
 function App() {
   const [results, setResults] = useState([]);
@@ -111,16 +111,13 @@ function App() {
   };
 
   return (
-  <div className='App'>
-      <div className="search-bar-container">
-      <SearchBar setResults={setResults} searchTracks={searchTracks} />
-      <div className='resultAndPlaylistColumn'>
-        <SearchResultsList results={results} addToPlayList={addToPlayList} />
-        <NewPlayList playlist={playlist} savePlaylist={savePlaylist} removeSongFromPlaylist={removeSongFromPlaylist} />
-      </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/"element={<Home />} />
+        <Route path="/callback" element={<Callback />} />
+      </Routes>
+    </Router>
+  
   );
 }
-
 export default App;
