@@ -6,9 +6,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      output: {
-        manualChunks: undefined,
+      external: [
+          /node_modules/
+      ] //,
+     // output: {  
+     //   manualChunks: undefined,
       },
     },
-  },
 });
