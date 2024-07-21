@@ -1,13 +1,13 @@
 const fs = require('fs');
-const path =  require('path');
+const path = require('path');
 const crypto = require('crypto');
 
 const indexPath = path.join(__dirname, 'dist', 'index.html');
 
 const insertNonce = (nonce) => {
-    fs.readFile(indexPath, 'utf-8', (err, data) => {
+    fs.readFile(indexPath, 'utf8', (err, data) => {  //  check out this 'utf8' to utf-8 
         if (err) {
-            console.error('Error reading index.html', err);
+            console.error('Error reading index.html:', err);
             return;
         }
         //Replace script with nonce
@@ -18,7 +18,7 @@ const insertNonce = (nonce) => {
 
     fs.writeFile(indexPath, result, 'utf8', (err) => {
         if (err) {
-            console.error('Error writing index.html', err);
+            console.error('Error writing index.html:', err);
         } else {
             console.log('Nonce added to script tag in index.html');
         }
