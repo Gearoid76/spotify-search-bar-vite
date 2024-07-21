@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postbuild": "node insert-nonce.jsx"
+    "postbuild": "node insert-nonce.js"
   },
   "dependencies": {
     "axios": "^1.7.2",
