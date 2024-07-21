@@ -2,18 +2,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-base: '/', // /spotify-search-bar-vite/
-plugins: [react()], 
-  build: {
-    rollupOptions: {
-      external: []
-    }
-  }
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http:localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
-//publicDir: '/spotify-search-bar-vite/',
-//build: {
-//  outDir: '/dist/',
-//},
-//});
-
-
