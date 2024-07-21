@@ -7,7 +7,7 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/data/ticktok') // Adjust the URL as needed
+    axios.get('https://api.spotify.com') // Adjust the URL as needed
       .then(response => {
         setData(response.data);
         setLoading(false);
