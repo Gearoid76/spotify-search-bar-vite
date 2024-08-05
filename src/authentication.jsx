@@ -7,7 +7,7 @@ export async function redirectToAuthCodeFlow(clientId) {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "http://localhost:5173/callback");
+    params.append("redirect_uri", "https://gearoid76.github.io/spotify-search-bar-vite/callbackcallback");
     params.append("scope", "user-read-private user-read-email playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-library-modify");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -60,7 +60,8 @@ export async function getAccessToken(clientId, code) {
     params.append("code", code);
     params.append("client_id", clientId);
     //params.append("client_id", import.meta.env.VITE_CLIENT_ID);
-    params.append("redirect_uri", "http://localhost:5173/callback");
+    params.append("redirect_uri", "https://gearoid76.github.io/spotify-search-bar-vite/callback");
+    //params.append("redirect_uri", "http://localhost:5173/callback"); for local host
     params.append("code_verifier", verifier);
 
     try {
